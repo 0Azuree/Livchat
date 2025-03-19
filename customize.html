@@ -18,6 +18,7 @@
             <input type="color" id="chatBackgroundColor" value="#ffffff">
         </div>
         <button id="saveCustomization">Save Customization</button>
+        <button id="backToChat">Back to Chat</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -25,7 +26,7 @@
             const body = document.body;
             const chatBackgroundColorInput = document.getElementById('chatBackgroundColor');
             const saveCustomizationButton = document.getElementById('saveCustomization');
-            const chatArea = document.querySelector('.chat-area'); // Assuming this exists in chat.html
+            const backToChatButton = document.getElementById('backToChat');
 
             function updateThemeButtonText() {
                 toggleThemeButton.forEach(button => {
@@ -56,22 +57,20 @@
                 });
             });
 
-            // Load saved background color
+            // Load saved background color (for the input field)
             const savedBackgroundColor = localStorage.getItem('chatBackgroundColor');
-            if (savedBackgroundColor && chatArea) {
-                chatArea.style.backgroundColor = savedBackgroundColor;
+            if (savedBackgroundColor) {
                 chatBackgroundColorInput.value = savedBackgroundColor;
             }
 
             saveCustomizationButton.addEventListener('click', function() {
-                if (chatArea) {
-                    const selectedColor = chatBackgroundColorInput.value;
-                    chatArea.style.backgroundColor = selectedColor;
-                    localStorage.setItem('chatBackgroundColor', selectedColor);
-                    alert('Customization saved!');
-                } else {
-                    alert('Could not find the chat area to customize.');
-                }
+                const selectedColor = chatBackgroundColorInput.value;
+                localStorage.setItem('chatBackgroundColor', selectedColor);
+                alert('Customization saved! Go back to the chat to see the changes.');
+            });
+
+            backToChatButton.addEventListener('click', function() {
+                window.location.href = 'chat.html';
             });
         });
     </script>
