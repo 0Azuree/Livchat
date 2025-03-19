@@ -1,12 +1,11 @@
 body {
-    background-color: #f4f4f4; /* Default white theme */
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode {
-    background-color: #000; /* Pure black for OLED dark mode */
-    color: #f4f4f4;
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4; /* Light background */
 }
 
 .theme-toggle {
@@ -39,16 +38,10 @@ body.dark-mode .theme-toggle button {
     padding: 30px;
     width: 400px; /* Adjust as needed */
     text-align: center;
-    margin-top: 40px; /* Adjust to make space for the title */
 }
 
-body.dark-mode .account-container {
-    background-color: #444;
-    color: #eee;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.account-container h2 {
+.screen-title {
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -65,30 +58,28 @@ body.dark-mode .account-container {
 
 .input-container input[type="text"],
 .input-container input[type="password"] {
-    width: calc(100% - 22px);
-    padding: 10px;
+    width: calc(100% - 12px);
+    padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
+    box-sizing: border-box;
     font-size: 1em;
 }
 
-body.dark-mode .input-container input[type="text"],
-body.dark-mode .input-container input[type="password"] {
-    background-color: #555;
-    color: #eee;
-    border-color: #777;
-}
-
-#createAccountSubmit {
+button {
     font-family: 'Playfair Display', serif;
     padding: 15px 25px;
     font-size: 1.2em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#createAccountSubmit {
     background-color: #5cb85c; /* Green */
     color: white;
-    transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 #createAccountSubmit:hover {
@@ -102,34 +93,57 @@ body.dark-mode .input-container input[type="password"] {
 
 .account-container p {
     margin-top: 15px;
+    font-size: 0.9em;
 }
 
-.account-container a {
+.account-container p a {
     color: #007bff;
     text-decoration: none;
 }
 
-body.dark-mode .account-container a {
-    color: #add8e6;
+.account-container p a:hover {
+    text-decoration: underline;
 }
 
-.screen-title {
-    font-size: 2.5em;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-    position: absolute;
-    top: -30px; /* Adjust as needed to control the hovering */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff; /* To cover the background */
-    padding: 0 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+body.dark-mode {
+    background-color: #000;
+}
+
+body.dark-mode .account-container {
+    background-color: #333;
+    color: #eee;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .screen-title {
     color: #eee;
-    background-color: #444;
-    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .input-container label {
+    color: #eee;
+}
+
+body.dark-mode .input-container input[type="text"],
+body.dark-mode .input-container input[type="password"] {
+    background-color: #555;
+    color: #eee;
+    border-color: #777;
+}
+
+body.dark-mode button {
+    color: #333;
+    background-color: #eee;
+}
+
+body.dark-mode #createAccountSubmit {
+    background-color: #81c981;
+    color: #333;
+}
+
+body.dark-mode #createAccountSubmit:hover {
+    opacity: 0.9;
+}
+
+body.dark-mode .account-container p a {
+    color: #80bfff;
 }
