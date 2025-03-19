@@ -1,0 +1,48 @@
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4; /* Light background */
+}
+
+.main-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px; /* Adjust as needed */
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    font-family: 'Playfair Display', serif;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#createAccountBtn {
+    background-color: #5cb85c; /* Green */
+    color: white;
+}
+
+#loginBtn {
+    background-color: #007bff; /* Blue */
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
