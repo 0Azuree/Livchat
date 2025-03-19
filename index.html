@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="theme-toggle">
+        <button id="toggleTheme">Dark Mode</button>
+    </div>
     <div class="main-container">
         <div class="button-container">
             <button id="createAccountBtn">Create Account</button>
@@ -15,14 +18,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('createAccountBtn').addEventListener('click', function() {
-            window.location.href = 'create_account.html';
-        });
-
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            window.location.href = 'login.html';
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
