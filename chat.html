@@ -15,21 +15,24 @@
     </div>
     <div class="chat-container">
         <header class="chat-header">
-            <div class="user-info">Snokeghintaidon placeholder</div>
-            <div class="public-channel">Public</div>
+            <div class="user-info"></div> <div class="public-channel">Public</div>
             <div class="friends-dropdown">
                 <button id="friendsToggle" class="friends-btn">
                     Friends <i class="fa-solid fa-user-plus"></i>
                 </button>
                 <div id="friendsMenu" class="dropdown-content">
-                    <a href="#">Add Friend</a>
+                    <a href="#" id="addFriendOption">Add Friend</a>
                     </div>
             </div>
         </header>
         <aside class="sidebar">
-            <button class="sidebar-btn">Chat</button>
-            <button class="sidebar-btn">Customize</button>
-            <button class="sidebar-btn">Settings</button>
+            <div class="username-dropdown">
+                <button id="usernameToggle" class="username-btn"></button> <div id="usernameMenu" class="dropdown-content">
+                    <a href="#" id="settingsOption">Settings</a>
+                </div>
+            </div>
+            <button class="sidebar-btn" id="chatOption">Chat</button>
+            <button class="sidebar-btn" id="customizeOption">Customize</button>
         </aside>
         <main class="main-content">
             <h1>Livchat</h1>
@@ -37,6 +40,11 @@
                 <p>Welcome to the chat!</p>
             </div>
         </main>
+        <div id="addFriendSearch" class="add-friend-search">
+            <input type="text" id="searchFriends" placeholder="Search for friends...">
+            <div id="searchResults" class="search-results">
+                </div>
+        </div>
     </div>
     <div class="snow-animation">
         <p style="color: red;">Snow animation placeholder</p>
@@ -44,14 +52,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
             const body = document.body;
+            const themeToggleButtons = document.querySelectorAll('.theme-toggle button');
+            const usernameDisplay = document.querySelector('.user-info');
+            const usernameToggle = document.getElementById('usernameToggle');
+            const usernameMenu = document.getElementById('usernameMenu');
             const friendsToggle = document.getElementById('friendsToggle');
             const friendsMenu = document.getElementById('friendsMenu');
+            const addFriendOption = document.getElementById('addFriendOption');
+            const addFriendSearch = document.getElementById('addFriendSearch');
+            const customizeOption = document.getElementById('customizeOption');
 
-            // Function to update button text
+            // Function to update theme button text
             function updateThemeButtonText() {
-                toggleThemeButton.forEach(button => {
+                themeToggleButtons.forEach(button => {
                     if (body.classList.contains('dark-mode')) {
                         button.textContent = 'Light Mode';
                     } else {
@@ -65,35 +79,65 @@
             if (currentTheme === 'dark') {
                 body.classList.add('dark-mode');
             }
-            updateThemeButtonText(); // Initial button text
+            updateThemeButtonText();
 
-            toggleThemeButton.forEach(button => {
+            themeToggleButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     body.classList.toggle('dark-mode');
-                    body.classList.add('theme-transition'); // Add transition class
+                    body.classList.add('theme-transition');
                     const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
                     localStorage.setItem('theme', newTheme);
-                    updateThemeButtonText(); // Update button text after toggling
-
-                    // Remove transition class after a delay
+                    updateThemeButtonText();
                     setTimeout(() => {
                         body.classList.remove('theme-transition');
-                    }, 300); // Adjust delay to match transition duration
+                    }, 300);
                 });
+            });
+
+            // Get logged in username from local storage
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                usernameDisplay.textContent = loggedInUser;
+                usernameToggle.textContent = loggedInUser;
+            } else {
+                // Redirect to login if no user is logged in
+                window.location.href = 'login.html';
+            }
+
+            // Toggle username dropdown
+            usernameToggle.addEventListener('click', function() {
+                usernameMenu.classList.toggle('show');
             });
 
             // Toggle friends dropdown
             friendsToggle.addEventListener('click', function() {
                 friendsMenu.classList.toggle('show');
+                addFriendSearch.classList.remove('show'); // Hide search if open
             });
 
-            // Close dropdown when clicking outside
+            // Handle "Add Friend" click
+            addFriendOption.addEventListener('click', function() {
+                friendsMenu.classList.remove('show');
+                addFriendSearch.classList.add('show');
+            });
+
+            // Close dropdowns when clicking outside
             window.addEventListener('click', function(event) {
-                if (!event.target.matches('#friendsToggle')) {
+                if (!event.target.matches('#friendsToggle') && !event.target.closest('.friends-dropdown')) {
                     if (friendsMenu.classList.contains('show')) {
                         friendsMenu.classList.remove('show');
                     }
                 }
+                if (!event.target.matches('#usernameToggle') && !event.target.closest('.username-dropdown')) {
+                    if (usernameMenu.classList.contains('show')) {
+                        usernameMenu.classList.remove('show');
+                    }
+                }
+            });
+
+            // Navigate to customize screen
+            customizeOption.addEventListener('click', function() {
+                window.location.href = 'customize.html';
             });
         });
     </script>
