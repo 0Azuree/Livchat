@@ -8,15 +8,24 @@
     <link rel="stylesheet" href="customize.css">
 </head>
 <body>
-    <h1>Customize Your Chat</h1>
-    <p>This is the customize screen.</p>
     <div class="theme-toggle">
         <button id="toggleTheme">Light Mode</button>
+    </div>
+    <h1>Customize Your Chat</h1>
+    <div class="customize-container">
+        <div class="setting-item">
+            <label for="chatBackgroundColor">Chat Background Color:</label>
+            <input type="color" id="chatBackgroundColor" value="#ffffff">
+        </div>
+        <button id="saveCustomization">Save Customization</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
             const body = document.body;
+            const chatBackgroundColorInput = document.getElementById('chatBackgroundColor');
+            const saveCustomizationButton = document.getElementById('saveCustomization');
+            const chatArea = document.querySelector('.chat-area'); // Assuming this exists in chat.html
 
             function updateThemeButtonText() {
                 toggleThemeButton.forEach(button => {
@@ -45,6 +54,24 @@
                         body.classList.remove('theme-transition');
                     }, 300);
                 });
+            });
+
+            // Load saved background color
+            const savedBackgroundColor = localStorage.getItem('chatBackgroundColor');
+            if (savedBackgroundColor && chatArea) {
+                chatArea.style.backgroundColor = savedBackgroundColor;
+                chatBackgroundColorInput.value = savedBackgroundColor;
+            }
+
+            saveCustomizationButton.addEventListener('click', function() {
+                if (chatArea) {
+                    const selectedColor = chatBackgroundColorInput.value;
+                    chatArea.style.backgroundColor = selectedColor;
+                    localStorage.setItem('chatBackgroundColor', selectedColor);
+                    alert('Customization saved!');
+                } else {
+                    alert('Could not find the chat area to customize.');
+                }
             });
         });
     </script>
