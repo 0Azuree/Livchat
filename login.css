@@ -5,7 +5,7 @@ body {
 }
 
 body.dark-mode {
-    background-color: #333;
+    background-color: #000; /* Pure black for OLED dark mode */
     color: #f4f4f4;
 }
 
