@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livchat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="button-container">
+            <button id="createAccountBtn">Create Account</button>
+            <button id="loginBtn">Login</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('createAccountBtn').addEventListener('click', function() {
+            window.location.href = 'create_account.html';
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
