@@ -1,7 +1,10 @@
 body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
     background-color: #f4f4f4; /* Default white theme */
     color: #333;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden; /* To contain the snow animation */
 }
 
 body.dark-mode {
@@ -32,48 +35,118 @@ body.dark-mode .theme-toggle button {
     color: #eee;
 }
 
-.chat-screen {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 600px; /* Adjust as needed */
-    text-align: center;
+.chat-container {
+    display: flex;
+    height: 100vh; /* Make the chat container take full viewport height */
 }
 
-body.dark-mode .chat-screen {
-    background-color: #444;
+.sidebar {
+    background-color: #f8f9fa;
+    color: #495057;
+    width: 150px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #dee2e6;
+}
+
+body.dark-mode .sidebar {
+    background-color: #333;
     color: #eee;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    border-right: 1px solid #555;
 }
 
-.chat-screen h2 {
-    margin-bottom: 20px;
-}
-
-.chat-box {
+.sidebar-btn {
+    font-family: 'Playfair Display', serif;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     background-color: #e9ecef;
     color: #495057;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .sidebar-btn {
+    background-color: #555;
+    color: #eee;
+}
+
+.sidebar-btn:hover {
+    background-color: #d3d9df;
+}
+
+body.dark-mode .sidebar-btn:hover {
+    background-color: #777;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-area {
+    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
-    margin-bottom: 20px;
-    text-align: left;
+    flex-grow: 1;
+    overflow-y: auto; /* For scrolling if there are many messages */
 }
 
-body.dark-mode .chat-box {
-    background-color: #555;
-    color: #f8f9fa;
+body.dark-mode .main-content .chat-area {
+    background-color: #444;
+    color: #eee;
+    border-color: #777;
 }
 
-.chat-screen p {
-    margin-top: 15px;
+.friends-sidebar {
+    background-color: #f8f9fa;
+    color: #495057;
+    width: 200px;
+    padding: 20px;
+    border-left: 1px solid #dee2e6;
 }
 
-.chat-screen a {
-    color: #007bff;
-    text-decoration: none;
+body.dark-mode .friends-sidebar {
+    background-color: #333;
+    color: #eee;
+    border-left: 1px solid #555;
 }
 
-body.dark-mode .chat-screen a {
-    color: #add8e6;
+.friends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.add-friend-icon {
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.friends-list {
+    /* Styles for the list of friends */
+}
+
+.snow-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows interaction with elements below */
+    /* Add snow animation styles here later */
 }
