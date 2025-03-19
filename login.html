@@ -28,7 +28,39 @@
         <p>Don't have an account? <a href="create_account.html">Create Account</a></p>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
+            const body = document.body;
+
+            // Function to update button text
+            function updateThemeButtonText() {
+                toggleThemeButton.forEach(button => {
+                    if (body.classList.contains('dark-mode')) {
+                        button.textContent = 'Light Mode';
+                    } else {
+                        button.textContent = 'Dark Mode';
+                    }
+                });
+            }
+
+            // Load theme preference from local storage
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+            updateThemeButtonText(); // Initial button text
+
+            toggleThemeButton.forEach(button => {
+                button.addEventListener('click', function() {
+                    body.classList.toggle('dark-mode');
+                    const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeButtonText(); // Update button text after toggling
+                });
+            });
+        });
+    </script>
     <script src="login.js"></script>
 </body>
 </html>
