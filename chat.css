@@ -1,56 +1,14 @@
-body {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    background-color: #f4f4f4; /* Default white theme */
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    overflow: hidden; /* To contain the snow animation */
-}
-
-body.dark-mode {
-    background-color: #1e1e1e; /* A slightly darker black for better contrast */
-    color: #f4f4f4;
-}
-
-body.theme-transition {
-    transition: background-color 0.5s ease, color 0.5s ease; /* Added transition for the whole body */
-}
-
-.theme-toggle {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.theme-toggle button {
-    font-family: 'Playfair Display', serif;
-    padding: 8px 15px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #ddd;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-body.dark-mode .theme-toggle button {
-    background-color: #555;
-    color: #eee;
-}
-
 .chat-container {
     display: flex;
-    flex-direction: column; /* Arrange header, main content, and sidebar vertically */
-    height: 95vh; /* Adjusted height to leave some space */
-    width: 90vw; /* Adjusted width */
+    height: 95vh;
+    width: 90vw;
     max-width: 1200px;
     max-height: 800px;
-    margin: 20px auto; /* Center the container */
+    margin: 20px auto;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for dark mode */
-    overflow: hidden; /* Clip content within the rounded corners */
-    background-color: #fff; /* Background color for the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-color: #fff;
 }
 
 body.dark-mode .chat-container {
@@ -61,11 +19,12 @@ body.dark-mode .chat-container {
 .chat-header {
     background-color: #e9ecef;
     color: #495057;
-    padding: 15px 20px;
+    padding: 10px 20px; /* Reduced padding */
     display: flex;
-    justify-content: space-between; /* Distribute items horizontally */
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dee2e6;
+    height: 60px; /* Fixed header height */
 }
 
 body.dark-mode .chat-header {
@@ -74,26 +33,36 @@ body.dark-mode .chat-header {
     border-bottom: 1px solid #333;
 }
 
-.header-username {
-    position: relative; /* For dropdown positioning */
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
 }
 
-.chat-header .username-dropdown {
-    /* Already defined in .header-username */
+.header-right {
+    margin-left: auto; /* Push to the right */
 }
 
-.chat-header .username-btn {
+.header-btn {
+    font-family: 'Playfair Display', serif;
+    padding: 8px 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     background-color: transparent;
     color: inherit;
-    border: none;
-    padding: 8px 10px;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: 'Playfair Display', serif;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.chat-header .username-btn:hover {
+.header-btn:hover {
     opacity: 0.8;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .header-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .livchat-title {
@@ -101,80 +70,11 @@ body.dark-mode .chat-header {
     font-weight: bold;
 }
 
-.friends-area {
-    display: flex;
-    align-items: center;
-}
-
-.friends-dropdown {
-    position: relative;
-    margin-left: 20px;
-}
-
-.friends-btn {
-    font-family: 'Playfair Display', serif;
-    padding: 8px 12px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007bff; /* Blue in light mode */
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-body.dark-mode .friends-btn {
-    background-color: #444; /* Darker background in dark mode */
-    color: #eee;
-}
-
-.friends-btn:hover {
-    opacity: 0.9;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%; /* Appear below the button */
-    right: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 5px;
-    margin-top: 5px;
-    animation: growDown 0.3s ease-in-out forwards;
-    transform-origin: top center;
-}
-
-body.dark-mode .dropdown-content {
-    background-color: #333;
-    color: #eee;
-    box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.1);
-}
-
-.dropdown-content.show {
-    display: block;
-}
-
-@keyframes growDown {
-    0% {
-        transform: scaleY(0);
-    }
-    80% {
-        transform: scaleY(1.1);
-    }
-    100% {
-        transform: scaleY(1);
-    }
-}
-
 .sidebar {
     background-color: #f8f9fa;
     color: #495057;
-    width: 150px;
-    padding: 20px;
+    width: 120px; /* Reduced sidebar width */
+    padding: 10px; /* Reduced padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -189,16 +89,24 @@ body.dark-mode .sidebar {
 
 .sidebar-btn {
     font-family: 'Playfair Display', serif;
-    padding: 10px 15px;
+    padding: 8px 10px; /* Reduced padding */
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #e9ecef;
     color: #495057;
-    width: 100%;
-    text-align: left;
+    width: 90%; /* Adjust button width */
+    text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Stack text and icon */
+    align-items: center;
+    font-size: 0.9em; /* Slightly smaller font */
+}
+
+.sidebar-btn i {
+    margin-top: 5px; /* Space between text and icon */
 }
 
 body.dark-mode .sidebar-btn {
@@ -216,14 +124,9 @@ body.dark-mode .sidebar-btn:hover {
 
 .main-content {
     flex-grow: 1;
-    padding: 30px;
+    padding: 20px; /* Reduced padding */
     display: flex;
     flex-direction: column;
-}
-
-.main-content h1 {
-    text-align: center;
-    margin-bottom: 20px;
 }
 
 .chat-area {
@@ -232,7 +135,7 @@ body.dark-mode .sidebar-btn:hover {
     border-radius: 8px;
     padding: 20px;
     flex-grow: 1;
-    overflow-y: auto; /* For scrolling if there are many messages */
+    overflow-y: auto;
 }
 
 body.dark-mode .main-content .chat-area {
@@ -241,39 +144,69 @@ body.dark-mode .main-content .chat-area {
     border-color: #333;
 }
 
-.snow-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allows interaction with elements below */
-    /* Add snow animation styles here later */
-}
-
-.add-friend-search {
+.dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     background-color: #f9f9f9;
     color: #333;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 2; /* Increased z-index */
     border-radius: 5px;
     margin-top: 5px;
-    padding: 10px;
+    animation: growDown 0.2s ease-in-out forwards; /* Faster animation */
+    transform-origin: top center;
 }
 
-body.dark-mode .add-friend-search {
+body.dark-mode .dropdown-content {
     background-color: #333;
     color: #eee;
     box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.1);
 }
 
-.add-friend-search.show {
+.dropdown-content.show {
     display: block;
+}
+
+@keyframes growDown {
+    0% {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+body.dark-mode .dropdown-content a {
+    color: #eee;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+body.dark-mode .dropdown-content a:hover {
+    background-color: #555;
+}
+
+.add-friend-search {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+body.dark-mode .add-friend-search {
+    border-top: 1px solid #555;
 }
 
 .add-friend-search input[type="text"] {
@@ -307,102 +240,4 @@ body.dark-mode .add-friend-search input[type="text"] {
 
 body.dark-mode .search-results div:hover {
     background-color: #555;
-}
-
-.settings-panel {
-    display: none;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-body.dark-mode .settings-panel {
-    background-color: #333;
-    color: #eee;
-    border-color: #555;
-}
-
-.settings-panel.show {
-    display: block;
-}
-
-.setting-item {
-    margin-bottom: 15px;
-}
-
-.setting-item label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.setting-item input[type="text"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
-    width: 200px;
-    margin-right: 10px;
-}
-
-body.dark-mode .setting-item input[type="text"] {
-    background-color: #555;
-    color: #eee;
-    border-color: #777;
-}
-
-.setting-item button {
-    font-family: 'Playfair Display', serif;
-    padding: 8px 15px;
-    font-size: 0.9em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.setting-item button:hover {
-    opacity: 0.9;
-}
-
-body.dark-mode .setting-item button {
-    background-color: #5cb85c;
-    color: #333;
-}
-
-body.dark-mode .setting-item button:hover {
-    opacity: 0.9;
-}
-
-.pfp-change {
-    display: flex;
-    align-items: center;
-}
-
-.pfp-placeholder {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    font-size: 1.2em;
-    color: #555;
-    cursor: pointer;
-}
-
-body.dark-mode .pfp-placeholder {
-    background-color: #555;
-    color: #ddd;
-}
-
-.plus-icon {
-    /* Style for the plus icon */
 }
