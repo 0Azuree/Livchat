@@ -1,63 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - Livchat</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="create_account.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="theme-toggle">
-        <button id="toggleTheme">Light Mode</button>
-    </div>
-    <h1 class="screen-title">Create Account</h1>
-    <div class="account-container">
-        <div class="input-container">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div class="input-container">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button id="createAccountSubmit">Create Account</button>
-        <p id="error-message" class="error"></p>
-        <p><a href="index.html">Back to Main</a></p>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
-            const body = document.body;
-
-            // Function to update button text
-            function updateThemeButtonText() {
-                toggleThemeButton.forEach(button => {
-                    if (body.classList.contains('dark-mode')) {
-                        button.textContent = 'Light Mode';
-                    } else {
-                        button.textContent = 'Dark Mode';
-                    }
-                });
-            }
-
-            // Load theme preference from local storage
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme === 'dark') {
-                body.classList.add('dark-mode');
-            }
-            updateThemeButtonText(); // Initial button text
-
-            toggleThemeButton.forEach(button => {
-                button.addEventListener('click', function() {
-                    body.classList.toggle('dark-mode');
-                    const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-                    localStorage.setItem('theme', newTheme);
-                    updateThemeButtonText(); // Update button text after toggling
-                });
-            });
+document.addEventListener('DOMContentLoaded', function() {
+            // ... theme toggle code ...
 
             const createAccountSubmitButton = document.getElementById('createAccountSubmit');
             const usernameInput = document.getElementById('username');
@@ -93,6 +35,3 @@
                 window.location.href = 'login.html'; // Redirect to login page
             });
         });
-    </script>
-</body>
-</html>
