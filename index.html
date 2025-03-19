@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livchat</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-</head>
+    </head>
 <body>
     <div class="theme-toggle">
-        <button id="toggleTheme">Dark Mode</button>
+        <button id="toggleTheme">Light Mode</button>
     </div>
     <div class="main-container">
         <div class="button-container">
@@ -18,6 +13,14 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('createAccountBtn').addEventListener('click', function() {
+            window.location.href = 'create_account.html';
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    </script>
 </body>
 </html>
