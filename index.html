@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livchat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
     <div class="theme-toggle">
-        <button id="toggleTheme">Light Mode</button>
+        <button id="toggleTheme">Dark Mode</button>
     </div>
     <div class="main-container">
         <div class="button-container">
@@ -14,12 +19,44 @@
     </div>
 
     <script>
-        document.getElementById('createAccountBtn').addEventListener('click', function() {
-            window.location.href = 'create_account.html';
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
+            const body = document.body;
 
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            window.location.href = 'login.html';
+            // Function to update button text
+            function updateThemeButtonText() {
+                toggleThemeButton.forEach(button => {
+                    if (body.classList.contains('dark-mode')) {
+                        button.textContent = 'Light Mode';
+                    } else {
+                        button.textContent = 'Dark Mode';
+                    }
+                });
+            }
+
+            // Load theme preference from local storage
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+            updateThemeButtonText(); // Initial button text
+
+            toggleThemeButton.forEach(button => {
+                button.addEventListener('click', function() {
+                    body.classList.toggle('dark-mode');
+                    const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeButtonText(); // Update button text after toggling
+                });
+            });
+
+            document.getElementById('createAccountBtn').addEventListener('click', function() {
+                window.location.href = 'create_account.html';
+            });
+
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
         });
     </script>
 </body>
