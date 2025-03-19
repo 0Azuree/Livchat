@@ -59,7 +59,7 @@ body.dark-mode .chat-container {
 }
 
 .chat-header {
-    background-color: #f8f9fa;
+    background-color: #e9ecef;
     color: #495057;
     padding: 15px 20px;
     display: flex;
@@ -175,6 +175,33 @@ body.dark-mode .sidebar {
     border-right: 1px solid #333;
 }
 
+.username-dropdown {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.username-btn {
+    font-family: 'Playfair Display', serif;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff; /* Blue in light mode */
+    color: white;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .username-btn {
+    background-color: #444;
+    color: #eee;
+}
+
+.username-btn:hover {
+    opacity: 0.9;
+}
+
 .sidebar-btn {
     font-family: 'Playfair Display', serif;
     padding: 10px 15px;
@@ -237,4 +264,39 @@ body.dark-mode .main-content .chat-area {
     height: 100%;
     pointer-events: none; /* Allows interaction with elements below */
     /* Add snow animation styles here later */
+}
+
+.add-friend-search {
+    display: none;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+body.dark-mode .add-friend-search {
+    background-color: #1e1e1e;
+    border-bottom: 1px solid #333;
+}
+
+.add-friend-search.show {
+    display: block;
+}
+
+.add-friend-search input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+body.dark-mode .add-friend-search input[type="text"] {
+    background-color: #333;
+    color: #eee;
+    border-color: #555;
+}
+
+.search-results {
+    /* Styles for search results will be added here */
 }
