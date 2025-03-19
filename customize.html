@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize - Livchat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="customize.css">
+</head>
+<body>
+    <h1>Customize Your Chat</h1>
+    <p>This is the customize screen.</p>
+    <div class="theme-toggle">
+        <button id="toggleTheme">Light Mode</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
+            const body = document.body;
+
+            function updateThemeButtonText() {
+                toggleThemeButton.forEach(button => {
+                    if (body.classList.contains('dark-mode')) {
+                        button.textContent = 'Light Mode';
+                    } else {
+                        button.textContent = 'Dark Mode';
+                    }
+                });
+            }
+
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+            updateThemeButtonText();
+
+            toggleThemeButton.forEach(button => {
+                button.addEventListener('click', function() {
+                    body.classList.toggle('dark-mode');
+                    body.classList.add('theme-transition');
+                    const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeButtonText();
+                    setTimeout(() => {
+                        body.classList.remove('theme-transition');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
