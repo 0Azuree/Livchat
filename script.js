@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const toggleThemeButton = document.getElementById('toggleTheme');
+    const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
     const body = document.body;
 
     // Function to update button text
     function updateThemeButtonText() {
-        if (body.classList.contains('dark-mode')) {
-            toggleThemeButton.textContent = 'Light Mode';
-        } else {
-            toggleThemeButton.textContent = 'Dark Mode';
-        }
+        toggleThemeButton.forEach(button => {
+            if (body.classList.contains('dark-mode')) {
+                button.textContent = 'Light Mode';
+            } else {
+                button.textContent = 'Dark Mode';
+            }
+        });
     }
 
     // Load theme preference from local storage
@@ -18,11 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateThemeButtonText(); // Initial button text
 
-    toggleThemeButton.addEventListener('click', function() {
-        body.classList.toggle('dark-mode');
-        const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('theme', newTheme);
-        updateThemeButtonText(); // Update button text after toggling
+    toggleThemeButton.forEach(button => {
+        button.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            updateThemeButtonText(); // Update button text after toggling
+        });
     });
 
     const createAccountSubmitButton = document.getElementById('createAccountSubmit');
