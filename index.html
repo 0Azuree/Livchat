@@ -3,21 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livchat</title>
+    <title>Login - Livchat</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="theme-toggle">
-        <button id="toggleTheme">Dark Mode</button>
+        <button id="toggleTheme">Light Mode</button>
     </div>
-    <div class="main-container">
-        <div class="button-container">
-            <button id="createAccountBtn">Create Account</button>
-            <button id="loginBtn">Login</button>
+    <h1 class="screen-title">Login</h1>
+    <div class="login-container">
+        <div class="input-container">
+            <label for="username">Username:</label>
+            <input type="text" id="loginUsername" name="username" required>
         </div>
+        <div class="input-container">
+            <label for="password">Password:</label>
+            <input type="password" id="loginPassword" name="password" required>
+        </div>
+        <button id="loginSubmit">Login</button>
+        <p id="login-error-message" class="error"></p>
+        <p><a href="index.html">Back to Main</a></p>
+        <p>Don't have an account? <a href="create_account.html">Create Account</a></p>
     </div>
 
     <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
