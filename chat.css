@@ -8,7 +8,7 @@ body {
 }
 
 body.dark-mode {
-    background-color: #000; /* Pure black for OLED dark mode */
+    background-color: #1e1e1e; /* A slightly darker black for better contrast */
     color: #f4f4f4;
 }
 
@@ -48,18 +48,18 @@ body.dark-mode .theme-toggle button {
     max-height: 800px;
     margin: 20px auto; /* Center the container */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for dark mode */
     overflow: hidden; /* Clip content within the rounded corners */
     background-color: #fff; /* Background color for the container */
 }
 
 body.dark-mode .chat-container {
-    background-color: #333;
+    background-color: #2c2c2c;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .chat-header {
-    background-color: #e9ecef;
+    background-color: #f8f9fa;
     color: #495057;
     padding: 15px 20px;
     display: flex;
@@ -69,9 +69,9 @@ body.dark-mode .chat-container {
 }
 
 body.dark-mode .chat-header {
-    background-color: #444;
+    background-color: #1e1e1e;
     color: #eee;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid #333;
 }
 
 .chat-header .user-info {
@@ -93,9 +93,14 @@ body.dark-mode .chat-header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #007bff; /* Blue */
+    background-color: #007bff; /* Blue in light mode */
     color: white;
     transition: background-color 0.3s ease;
+}
+
+body.dark-mode .friends-btn {
+    background-color: #444; /* Darker background in dark mode */
+    color: #eee;
 }
 
 .friends-btn:hover {
@@ -118,8 +123,9 @@ body.dark-mode .chat-header {
 }
 
 body.dark-mode .dropdown-content {
-    background-color: #555;
+    background-color: #333;
     color: #eee;
+    box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.1);
 }
 
 .dropdown-content a {
@@ -164,9 +170,9 @@ body.dark-mode .dropdown-content a:hover {background-color: #777;}
 }
 
 body.dark-mode .sidebar {
-    background-color: #333;
+    background-color: #1e1e1e;
     color: #eee;
-    border-right: 1px solid #555;
+    border-right: 1px solid #333;
 }
 
 .sidebar-btn {
@@ -184,7 +190,7 @@ body.dark-mode .sidebar {
 }
 
 body.dark-mode .sidebar-btn {
-    background-color: #555;
+    background-color: #333;
     color: #eee;
 }
 
@@ -193,7 +199,7 @@ body.dark-mode .sidebar-btn {
 }
 
 body.dark-mode .sidebar-btn:hover {
-    background-color: #777;
+    background-color: #555;
 }
 
 .main-content {
@@ -218,9 +224,9 @@ body.dark-mode .sidebar-btn:hover {
 }
 
 body.dark-mode .main-content .chat-area {
-    background-color: #444;
+    background-color: #1e1e1e;
     color: #eee;
-    border-color: #777;
+    border-color: #333;
 }
 
 .snow-animation {
