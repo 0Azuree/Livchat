@@ -15,62 +15,44 @@
     </div>
     <div class="chat-container">
         <header class="chat-header">
-            <div class="username-dropdown header-username">
-                <button id="usernameToggle" class="username-btn"></button>
-                <div id="usernameMenu" class="dropdown-content">
-                    <a href="#" id="settingsOption">Settings</a>
+            <div class="header-left">
+                <div class="username-dropdown">
+                    <button id="usernameToggle" class="header-btn">
+                        <span id="currentUsername"></span> <i class="fa-solid fa-caret-down"></i>
+                    </button>
+                    <div id="usernameMenu" class="dropdown-content">
+                        <a href="settings.html" id="settingsOption">Settings</a>
+                    </div>
                 </div>
             </div>
             <div class="livchat-title">Livchat</div>
-            <div class="friends-area">
+            <div class="header-right">
                 <div class="friends-dropdown">
-                    <button id="friendsToggle" class="friends-btn">
-                        Friends <i class="fa-solid fa-user-plus"></i>
+                    <button id="friendsToggle" class="header-btn">
+                        Friends <i class="fa-solid fa-user-plus"></i> <i class="fa-solid fa-caret-down"></i>
                     </button>
                     <div id="friendsMenu" class="dropdown-content">
                         <a href="#" id="addFriendOption">Add Friend</a>
+                        <div id="addFriendSearch" class="add-friend-search">
+                            <input type="text" id="searchFriends" placeholder="Search">
+                            <div id="searchResults" class="search-results">
+                                <div>Result</div>
+                                <div>Result</div>
+                                <div>Result</div>
+                            </div>
                         </div>
-                </div>
-                <div id="addFriendSearch" class="add-friend-search">
-                    <input type="text" id="searchFriends" placeholder="Search">
-                    <div id="searchResults" class="search-results">
-                        <div>Result</div>
-                        <div>Result</div>
-                        <div>Result</div>
                     </div>
                 </div>
             </div>
         </header>
         <aside class="sidebar">
-            <button class="sidebar-btn" id="chatOption">Chat</button>
-            <button class="sidebar-btn" id="customizeOption">Customize</button>
+            <button class="sidebar-btn" id="chatOption">Chat <i class="fa-regular fa-comment"></i></button>
+            <button class="sidebar-btn" id="customizeOption">Customize <i class="fa-solid fa-palette"></i></button>
         </aside>
         <main class="main-content">
-            <h1>Livchat</h1>
             <div class="chat-area">
-                <p>Welcome to the chat!</p>
-            </div>
-            <div id="settingsPanel" class="settings-panel">
-                <h2>Settings</h2>
-                <div class="setting-item">
-                    <label for="changeUsername">Change Username:</label>
-                    <input type="text" id="changeUsername" placeholder="New Username">
-                    <button id="saveUsername">Save</button>
                 </div>
-                <div class="setting-item">
-                    <label>Profile Picture:</label>
-                    <div class="pfp-change">
-                        <div class="pfp-placeholder">
-                            <div class="plus-icon">+</div>
-                        </div>
-                        <span>Change PFP (Not Implemented)</span>
-                    </div>
-                </div>
-            </div>
         </main>
-    </div>
-    <div class="snow-animation">
-        <p style="color: red;">Snow animation placeholder</p>
     </div>
 
     <script>
@@ -84,11 +66,7 @@
             const addFriendOption = document.getElementById('addFriendOption');
             const addFriendSearch = document.getElementById('addFriendSearch');
             const customizeOption = document.getElementById('customizeOption');
-            const livchatTitleHeader = document.querySelector('.livchat-title');
-            const settingsOption = document.getElementById('settingsOption');
-            const settingsPanel = document.getElementById('settingsPanel');
-            const saveUsernameButton = document.getElementById('saveUsername');
-            const changeUsernameInput = document.getElementById('changeUsername');
+            const currentUsernameSpan = document.getElementById('currentUsername');
 
             // Function to update theme button text
             function updateThemeButtonText() {
@@ -125,43 +103,41 @@
             const loggedInUser = localStorage.getItem('loggedInUser');
             if (loggedInUser) {
                 usernameToggle.textContent = loggedInUser;
+                currentUsernameSpan.textContent = loggedInUser;
             } else {
-                // Redirect to login if no user is logged in
                 window.location.href = 'login.html';
             }
 
             // Toggle username dropdown
-            usernameToggle.addEventListener('click', function() {
+            usernameToggle.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent closing immediately if clicking inside
                 usernameMenu.classList.toggle('show');
-                settingsPanel.classList.remove('show'); // Hide settings if open
+                friendsMenu.classList.remove('show');
             });
 
             // Toggle friends dropdown
-            friendsToggle.addEventListener('click', function() {
+            friendsToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
                 friendsMenu.classList.toggle('show');
-                addFriendSearch.classList.remove('show'); // Hide search if open
+                usernameMenu.classList.remove('show');
             });
 
             // Handle "Add Friend" click
-            addFriendOption.addEventListener('click', function() {
+            addFriendOption.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent any default link behavior
                 friendsMenu.classList.remove('show');
-                addFriendSearch.classList.toggle('show'); // Now toggle the search
+                addFriendSearch.classList.toggle('show');
                 document.getElementById('searchFriends').focus();
             });
 
             // Close dropdowns when clicking outside
             window.addEventListener('click', function(event) {
-                if (!event.target.matches('#friendsToggle') && !event.target.closest('.friends-area')) {
-                    if (friendsMenu.classList.contains('show')) {
-                        friendsMenu.classList.remove('show');
-                        addFriendSearch.classList.remove('show');
-                    }
+                if (!event.target.matches('#friendsToggle') && !event.target.closest('.friends-dropdown')) {
+                    friendsMenu.classList.remove('show');
+                    addFriendSearch.classList.remove('show');
                 }
-                if (!event.target.matches('#usernameToggle') && !event.target.closest('.header-username')) {
-                    if (usernameMenu.classList.contains('show')) {
-                        usernameMenu.classList.remove('show');
-                        settingsPanel.classList.remove('show');
-                    }
+                if (!event.target.matches('#usernameToggle') && !event.target.closest('.username-dropdown')) {
+                    usernameMenu.classList.remove('show');
                 }
             });
 
@@ -170,23 +146,10 @@
                 window.location.href = 'customize.html';
             });
 
-            // Show settings panel
-            settingsOption.addEventListener('click', function() {
-                usernameMenu.classList.remove('show');
-                settingsPanel.classList.toggle('show');
-            });
-
-            // Save Username functionality (basic - doesn't update local storage for chat messages)
-            saveUsernameButton.addEventListener('click', function() {
-                const newUsername = changeUsernameInput.value.trim();
-                if (newUsername && newUsername !== loggedInUser) {
-                    usernameToggle.textContent = newUsername;
-                    localStorage.setItem('loggedInUser', newUsername);
-                    alert('Username updated!');
-                    // You might want to reload the page or update other parts of the UI
-                } else if (!newUsername) {
-                    alert('Please enter a new username.');
-                }
+            // Navigate to settings screen
+            const settingsOption = document.getElementById('settingsOption');
+            settingsOption.addEventListener('click', function(event) {
+                window.location.href = 'settings.html';
             });
         });
     </script>
