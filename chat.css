@@ -253,7 +253,23 @@ body.dark-mode .main-content .chat-area {
 
 .add-friend-search {
     display: none;
-    margin-left: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+body.dark-mode .add-friend-search {
+    background-color: #333;
+    color: #eee;
+    box-shadow: 0px 8px 16px 0px rgba(255,255,255,0.1);
 }
 
 .add-friend-search.show {
@@ -261,19 +277,132 @@ body.dark-mode .main-content .chat-area {
 }
 
 .add-friend-search input[type="text"] {
+    width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
     box-sizing: border-box;
+    margin-bottom: 5px;
 }
 
 body.dark-mode .add-friend-search input[type="text"] {
+    background-color: #555;
+    color: #eee;
+    border-color: #777;
+}
+
+.search-results {
+    margin-top: 5px;
+}
+
+.search-results div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-results div:hover {
+    background-color: #eee;
+}
+
+body.dark-mode .search-results div:hover {
+    background-color: #555;
+}
+
+.settings-panel {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+body.dark-mode .settings-panel {
     background-color: #333;
     color: #eee;
     border-color: #555;
 }
 
-.search-results {
-    /* Styles for search results will be added here */
+.settings-panel.show {
+    display: block;
+}
+
+.setting-item {
+    margin-bottom: 15px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.setting-item input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    width: 200px;
+    margin-right: 10px;
+}
+
+body.dark-mode .setting-item input[type="text"] {
+    background-color: #555;
+    color: #eee;
+    border-color: #777;
+}
+
+.setting-item button {
+    font-family: 'Playfair Display', serif;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.setting-item button:hover {
+    opacity: 0.9;
+}
+
+body.dark-mode .setting-item button {
+    background-color: #5cb85c;
+    color: #333;
+}
+
+body.dark-mode .setting-item button:hover {
+    opacity: 0.9;
+}
+
+.pfp-change {
+    display: flex;
+    align-items: center;
+}
+
+.pfp-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #555;
+    cursor: pointer;
+}
+
+body.dark-mode .pfp-placeholder {
+    background-color: #555;
+    color: #ddd;
+}
+
+.plus-icon {
+    /* Style for the plus icon */
 }
