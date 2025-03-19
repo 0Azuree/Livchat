@@ -2,16 +2,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleThemeButton = document.getElementById('toggleTheme');
     const body = document.body;
 
+    // Function to update button text
+    function updateThemeButtonText() {
+        if (body.classList.contains('dark-mode')) {
+            toggleThemeButton.textContent = 'Light Mode';
+        } else {
+            toggleThemeButton.textContent = 'Dark Mode';
+        }
+    }
+
     // Load theme preference from local storage
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
         body.classList.add('dark-mode');
     }
+    updateThemeButtonText(); // Initial button text
 
     toggleThemeButton.addEventListener('click', function() {
         body.classList.toggle('dark-mode');
         const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('theme', newTheme);
+        updateThemeButtonText(); // Update button text after toggling
     });
 
     const createAccountSubmitButton = document.getElementById('createAccountSubmit');
