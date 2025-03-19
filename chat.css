@@ -144,11 +144,14 @@ body.dark-mode .main-content .chat-area {
     border-color: #333;
 }
 
+.username-dropdown, .friends-dropdown {
+    position: relative; /* Add this to make dropdown positioning work correctly */
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
     background-color: #f9f9f9;
     color: #333;
     min-width: 150px;
@@ -158,6 +161,16 @@ body.dark-mode .main-content .chat-area {
     margin-top: 5px;
     animation: growDown 0.2s ease-in-out forwards; /* Faster animation */
     transform-origin: top center;
+}
+
+.username-dropdown .dropdown-content {
+    left: 0; /* Position username dropdown to the left */
+    right: auto;
+}
+
+.friends-dropdown .dropdown-content {
+    right: 0; /* Position friends dropdown to the right */
+    left: auto;
 }
 
 body.dark-mode .dropdown-content {
@@ -203,6 +216,11 @@ body.dark-mode .dropdown-content a:hover {
 .add-friend-search {
     padding: 10px;
     border-top: 1px solid #ccc;
+    display: none; /* Initially hidden */
+}
+
+.add-friend-search.show {
+    display: block;
 }
 
 body.dark-mode .add-friend-search {
