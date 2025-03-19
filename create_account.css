@@ -1,4 +1,117 @@
-/* ... previous CSS ... */
+body {
+    background-color: #f4f4f4; /* Default white theme */
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #000; /* Pure black for OLED dark mode */
+    color: #f4f4f4;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.theme-toggle button {
+    font-family: 'Playfair Display', serif;
+    padding: 8px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ddd;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .theme-toggle button {
+    background-color: #555;
+    color: #eee;
+}
+
+.account-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px; /* Adjust as needed */
+    text-align: center;
+    margin-top: 40px; /* Adjust to make space for the title */
+}
+
+body.dark-mode .account-container {
+    background-color: #444;
+    color: #eee;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.account-container h2 {
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-container input[type="text"],
+.input-container input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+body.dark-mode .input-container input[type="text"],
+body.dark-mode .input-container input[type="password"] {
+    background-color: #555;
+    color: #eee;
+    border-color: #777;
+}
+
+#createAccountSubmit {
+    font-family: 'Playfair Display', serif;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #5cb85c; /* Green */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+#createAccountSubmit:hover {
+    opacity: 0.9;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.account-container p {
+    margin-top: 15px;
+}
+
+.account-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+body.dark-mode .account-container a {
+    color: #add8e6;
+}
 
 .screen-title {
     font-size: 2.5em;
@@ -20,14 +133,3 @@ body.dark-mode .screen-title {
     background-color: #444;
     box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
-
-.account-container {
-    /* ... rest of the account-container styles ... */
-    margin-top: 40px; /* Adjust to make space for the title */
-}
-
-body.dark-mode .account-container {
-    /* ... rest of the dark mode account-container styles ... */
-}
-
-/* ... rest of the create_account.css ... */
