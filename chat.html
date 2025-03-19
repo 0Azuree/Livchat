@@ -110,14 +110,12 @@
 
             // Toggle username dropdown
             usernameToggle.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent closing immediately if clicking inside
                 usernameMenu.classList.toggle('show');
                 friendsMenu.classList.remove('show');
             });
 
             // Toggle friends dropdown
             friendsToggle.addEventListener('click', function(event) {
-                event.stopPropagation();
                 friendsMenu.classList.toggle('show');
                 usernameMenu.classList.remove('show');
             });
