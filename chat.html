@@ -32,9 +32,12 @@
                         </div>
                 </div>
                 <div id="addFriendSearch" class="add-friend-search">
-                    <input type="text" id="searchFriends" placeholder="Search for friends...">
+                    <input type="text" id="searchFriends" placeholder="Search">
                     <div id="searchResults" class="search-results">
-                        </div>
+                        <div>Result</div>
+                        <div>Result</div>
+                        <div>Result</div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -46,6 +49,23 @@
             <h1>Livchat</h1>
             <div class="chat-area">
                 <p>Welcome to the chat!</p>
+            </div>
+            <div id="settingsPanel" class="settings-panel">
+                <h2>Settings</h2>
+                <div class="setting-item">
+                    <label for="changeUsername">Change Username:</label>
+                    <input type="text" id="changeUsername" placeholder="New Username">
+                    <button id="saveUsername">Save</button>
+                </div>
+                <div class="setting-item">
+                    <label>Profile Picture:</label>
+                    <div class="pfp-change">
+                        <div class="pfp-placeholder">
+                            <div class="plus-icon">+</div>
+                        </div>
+                        <span>Change PFP (Not Implemented)</span>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -65,6 +85,10 @@
             const addFriendSearch = document.getElementById('addFriendSearch');
             const customizeOption = document.getElementById('customizeOption');
             const livchatTitleHeader = document.querySelector('.livchat-title');
+            const settingsOption = document.getElementById('settingsOption');
+            const settingsPanel = document.getElementById('settingsPanel');
+            const saveUsernameButton = document.getElementById('saveUsername');
+            const changeUsernameInput = document.getElementById('changeUsername');
 
             // Function to update theme button text
             function updateThemeButtonText() {
@@ -109,6 +133,7 @@
             // Toggle username dropdown
             usernameToggle.addEventListener('click', function() {
                 usernameMenu.classList.toggle('show');
+                settingsPanel.classList.remove('show'); // Hide settings if open
             });
 
             // Toggle friends dropdown
@@ -120,8 +145,8 @@
             // Handle "Add Friend" click
             addFriendOption.addEventListener('click', function() {
                 friendsMenu.classList.remove('show');
-                addFriendSearch.classList.add('show');
-                addFriendSearchInput.focus(); // Focus on the search bar
+                addFriendSearch.classList.toggle('show'); // Now toggle the search
+                document.getElementById('searchFriends').focus();
             });
 
             // Close dropdowns when clicking outside
@@ -129,12 +154,13 @@
                 if (!event.target.matches('#friendsToggle') && !event.target.closest('.friends-area')) {
                     if (friendsMenu.classList.contains('show')) {
                         friendsMenu.classList.remove('show');
-                        addFriendSearch.classList.remove('show'); // Also hide search if dropdown closes
+                        addFriendSearch.classList.remove('show');
                     }
                 }
                 if (!event.target.matches('#usernameToggle') && !event.target.closest('.header-username')) {
                     if (usernameMenu.classList.contains('show')) {
                         usernameMenu.classList.remove('show');
+                        settingsPanel.classList.remove('show');
                     }
                 }
             });
@@ -144,8 +170,24 @@
                 window.location.href = 'customize.html';
             });
 
-            // Get the search input for focusing
-            const addFriendSearchInput = document.getElementById('searchFriends');
+            // Show settings panel
+            settingsOption.addEventListener('click', function() {
+                usernameMenu.classList.remove('show');
+                settingsPanel.classList.toggle('show');
+            });
+
+            // Save Username functionality (basic - doesn't update local storage for chat messages)
+            saveUsernameButton.addEventListener('click', function() {
+                const newUsername = changeUsernameInput.value.trim();
+                if (newUsername && newUsername !== loggedInUser) {
+                    usernameToggle.textContent = newUsername;
+                    localStorage.setItem('loggedInUser', newUsername);
+                    alert('Username updated!');
+                    // You might want to reload the page or update other parts of the UI
+                } else if (!newUsername) {
+                    alert('Please enter a new username.');
+                }
+            });
         });
     </script>
 </body>
