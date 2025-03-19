@@ -39,6 +39,7 @@ body.dark-mode .theme-toggle button {
     padding: 30px;
     width: 400px; /* Adjust as needed */
     text-align: center;
+    margin-top: 40px; /* Adjust to make space for the title */
 }
 
 body.dark-mode .login-container {
@@ -111,4 +112,25 @@ body.dark-mode .input-container input[type="password"] {
 
 body.dark-mode .login-container a {
     color: #add8e6;
+}
+
+.screen-title {
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    position: absolute;
+    top: -30px; /* Adjust as needed to control the hovering */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff; /* To cover the background */
+    padding: 0 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .screen-title {
+    color: #eee;
+    background-color: #444;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
 }
