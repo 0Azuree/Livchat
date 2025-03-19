@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (storedUsers && storedUsers[username] === password) {
             alert('Login successful!');
-            window.location.href = 'chat.html'; // Redirect to the chat screen (we'll create this later)
+            // Store the logged-in username in local storage
+            localStorage.setItem('loggedInUser', username);
+            window.location.href = 'chat.html'; // Redirect to the chat screen
         } else {
             errorMessage.textContent = 'Invalid username or password.';
         }
