@@ -12,28 +12,27 @@
     <div class="theme-toggle">
         <button id="toggleTheme">Light Mode</button>
     </div>
-    <h1 class="screen-title">Login</h1>
+    <h1 class="screen-title">Login to Livchat</h1>
     <div class="login-container">
         <div class="input-container">
-            <label for="username">Username:</label>
-            <input type="text" id="loginUsername" name="username" required>
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
         </div>
         <div class="input-container">
-            <label for="password">Password:</label>
-            <input type="password" id="loginPassword" name="password" required>
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
         </div>
         <button id="loginSubmit">Login</button>
         <p id="login-error-message" class="error"></p>
-        <p><a href="index.html">Back to Main</a></p>
-        <p>Don't have an account? <a href="create_account.html">Create Account</a></p>
+        <p>Don't have an account? <a href="create_account.html">Create one here</a>.</p>
     </div>
 
+    <script src="login.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
             const body = document.body;
 
-            // Function to update button text
             function updateThemeButtonText() {
                 toggleThemeButton.forEach(button => {
                     if (body.classList.contains('dark-mode')) {
@@ -44,23 +43,25 @@
                 });
             }
 
-            // Load theme preference from local storage
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme === 'dark') {
                 body.classList.add('dark-mode');
             }
-            updateThemeButtonText(); // Initial button text
+            updateThemeButtonText();
 
             toggleThemeButton.forEach(button => {
                 button.addEventListener('click', function() {
                     body.classList.toggle('dark-mode');
+                    body.classList.add('theme-transition');
                     const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
                     localStorage.setItem('theme', newTheme);
-                    updateThemeButtonText(); // Update button text after toggling
+                    updateThemeButtonText();
+                    setTimeout(() => {
+                        body.classList.remove('theme-transition');
+                    }, 300);
                 });
             });
         });
     </script>
-    <script src="login.js"></script>
 </body>
 </html>
