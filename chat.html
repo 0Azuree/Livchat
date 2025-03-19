@@ -7,31 +7,36 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="chat.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="theme-toggle">
         <button id="toggleTheme">Light Mode</button>
     </div>
     <div class="chat-container">
-        <div class="sidebar">
-            <button class="sidebar-btn">Public</button>
+        <header class="chat-header">
+            <div class="user-info">Snokeghintaidon placeholder</div>
+            <div class="public-channel">Public</div>
+            <div class="friends-dropdown">
+                <button id="friendsToggle" class="friends-btn">
+                    Friends <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <div id="friendsMenu" class="dropdown-content">
+                    <a href="#">Add Friend</a>
+                    </div>
+            </div>
+        </header>
+        <aside class="sidebar">
             <button class="sidebar-btn">Chat</button>
             <button class="sidebar-btn">Customize</button>
             <button class="sidebar-btn">Settings</button>
-        </div>
-        <div class="main-content">
+        </aside>
+        <main class="main-content">
             <h1>Livchat</h1>
             <div class="chat-area">
                 <p>Welcome to the chat!</p>
             </div>
-        </div>
-        <div class="friends-sidebar">
-            <div class="friends-header">
-                Friends <span class="add-friend-icon">+</span>
-            </div>
-            <div class="friends-list">
-                </div>
-        </div>
+        </main>
     </div>
     <div class="snow-animation">
         <p style="color: red;">Snow animation placeholder</p>
@@ -41,6 +46,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
             const body = document.body;
+            const friendsToggle = document.getElementById('friendsToggle');
+            const friendsMenu = document.getElementById('friendsMenu');
 
             // Function to update button text
             function updateThemeButtonText() {
@@ -63,10 +70,30 @@
             toggleThemeButton.forEach(button => {
                 button.addEventListener('click', function() {
                     body.classList.toggle('dark-mode');
+                    body.classList.add('theme-transition'); // Add transition class
                     const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
                     localStorage.setItem('theme', newTheme);
                     updateThemeButtonText(); // Update button text after toggling
+
+                    // Remove transition class after a delay
+                    setTimeout(() => {
+                        body.classList.remove('theme-transition');
+                    }, 300); // Adjust delay to match transition duration
                 });
+            });
+
+            // Toggle friends dropdown
+            friendsToggle.addEventListener('click', function() {
+                friendsMenu.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            window.addEventListener('click', function(event) {
+                if (!event.target.matches('#friendsToggle')) {
+                    if (friendsMenu.classList.contains('show')) {
+                        friendsMenu.classList.remove('show');
+                    }
+                }
             });
         });
     </script>
