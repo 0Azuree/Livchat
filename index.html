@@ -9,12 +9,13 @@
 </head>
 <body>
     <div class="theme-toggle">
-        <button id="toggleTheme">Dark Mode</button>
+        <button id="toggleTheme">Light Mode</button>
     </div>
-    <div class="main-container">
-        <div class="button-container">
-            <button id="createAccountBtn">Create Account</button>
-            <button id="loginBtn">Login</button>
+    <div class="main-screen-container">
+        <h1>Welcome to Livchat</h1>
+        <div class="auth-buttons">
+            <a href="login.html" class="button">Login</a>
+            <a href="create_account.html" class="button">Create Account</a>
         </div>
     </div>
 
@@ -23,7 +24,6 @@
             const toggleThemeButton = document.querySelectorAll('.theme-toggle button');
             const body = document.body;
 
-            // Function to update button text
             function updateThemeButtonText() {
                 toggleThemeButton.forEach(button => {
                     if (body.classList.contains('dark-mode')) {
@@ -34,28 +34,23 @@
                 });
             }
 
-            // Load theme preference from local storage
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme === 'dark') {
                 body.classList.add('dark-mode');
             }
-            updateThemeButtonText(); // Initial button text
+            updateThemeButtonText();
 
             toggleThemeButton.forEach(button => {
                 button.addEventListener('click', function() {
                     body.classList.toggle('dark-mode');
+                    body.classList.add('theme-transition');
                     const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
                     localStorage.setItem('theme', newTheme);
-                    updateThemeButtonText(); // Update button text after toggling
+                    updateThemeButtonText();
+                    setTimeout(() => {
+                        body.classList.remove('theme-transition');
+                    }, 300);
                 });
-            });
-
-            document.getElementById('createAccountBtn').addEventListener('click', function() {
-                window.location.href = 'create_account.html';
-            });
-
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                window.location.href = 'login.html';
             });
         });
     </script>
