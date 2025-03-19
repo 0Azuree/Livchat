@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Livchat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="settings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="toggleTheme">Light Mode</button>
+    </div>
+    <div class="settings-container">
+        <h1>Settings</h1>
+        <div class="setting-item">
+            <label for="changeUsername">Change Username:</label>
+            <input type="text" id="changeUsername" placeholder="New Username">
+            <button id="saveUsername">Save</button>
+        </div>
+        <div class="setting-item">
+            <label>Profile Picture:</label>
+            <div class="pfp-change">
+                <div class="pfp-placeholder">
+                    <div class="plus-icon">+</div>
+                </div>
+                <span>Change PFP (Not Implemented)</span>
+            </div>
+        </div>
+        <button id="backToChat">Back to Chat</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const themeToggleButtons = document.querySelectorAll('.theme-toggle button');
+            const saveUsernameButton = document.getElementById('saveUsername');
+            const changeUsernameInput = document.getElementById('changeUsername');
+            const backToChatButton = document.getElementById('backToChat');
+            const currentUsernameSpan = document.getElementById('currentUsername'); // May not exist here
+
+            // Function to update theme button text
+            function updateThemeButtonText() {
+                themeToggleButtons.forEach(button => {
+                    if (body.classList.contains('dark-mode')) {
+                        button.textContent = 'Light Mode';
+                    } else {
+                        button.textContent = 'Dark Mode';
+                    }
+                });
+            }
+
+            // Load theme preference from local storage
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+            updateThemeButtonText();
+
+            themeToggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    body.classList.toggle('dark-mode');
+                    body.classList.add('theme-transition');
+                    const newTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeButtonText();
+                    setTimeout(() => {
+                        body.classList.remove('theme-transition');
+                    }, 300);
+                });
+            });
+
+            // Get logged in username from local storage
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                // currentUsernameSpan.textContent = loggedInUser; // May not be needed here
+                changeUsernameInput.value = loggedInUser; // Pre-fill the input
+            } else {
+                window.location.href = 'login.html';
+            }
+
+            // Save Username functionality
+            saveUsernameButton.addEventListener('click', function() {
+                const newUsername = changeUsernameInput.value.trim();
+                const storedUsername = localStorage.getItem('loggedInUser');
+                if (newUsername && newUsername !== storedUsername) {
+                    localStorage.setItem('loggedInUser', newUsername);
+                    alert('Username updated!');
+                    // You might want to update the username display on the chat screen as well
+                } else if (!newUsername) {
+                    alert('Please enter a new username.');
+                } else if (newUsername === storedUsername) {
+                    alert('Please enter a new username.');
+                }
+            });
+
+            backToChatButton.addEventListener('click', function() {
+                window.location.href = 'chat.html';
+            });
+        });
+    </script>
+</body>
+</html>
