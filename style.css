@@ -122,3 +122,42 @@ body.dark-mode .theme-toggle button {
     background-color: #555;
     color: #eee;
 }
+
+.main-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Adjust as needed */
+    text-align: center;
+}
+
+.main-screen-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.auth-buttons a {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.auth-buttons a:hover {
+    background-color: #0056b3;
+}
+
+body.dark-mode .auth-buttons a {
+    background-color: #5cb85c;
+    color: #333;
+}
+
+body.dark-mode .auth-buttons a:hover {
+    background-color: #4cae4c;
+}
