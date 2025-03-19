@@ -117,14 +117,18 @@
 
             // Toggle username dropdown
             usernameToggle.addEventListener('click', function(event) {
+                console.log('Username toggle clicked'); // Debugging log
                 usernameMenu.classList.toggle('show');
                 friendsMenu.classList.remove('show');
+                console.log('Username menu show:', usernameMenu.classList.contains('show')); // Debugging log
             });
 
             // Toggle friends dropdown
             friendsToggle.addEventListener('click', function(event) {
+                console.log('Friends toggle clicked'); // Debugging log
                 friendsMenu.classList.toggle('show');
                 usernameMenu.classList.remove('show');
+                console.log('Friends menu show:', friendsMenu.classList.contains('show')); // Debugging log
             });
 
             // Handle "Add Friend" click
