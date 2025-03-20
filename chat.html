@@ -8,6 +8,49 @@
     <link rel="stylesheet" href="chat.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .add-friend-icon {
+            color: green;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .notification-item-sidebar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .notification-item-sidebar {
+            border-bottom: 1px solid #333;
+        }
+
+        .notification-item-sidebar:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item-sidebar span {
+            flex-grow: 1;
+        }
+
+        .notification-item-sidebar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1em;
+        }
+
+        .accept-friend-sidebar {
+            color: green;
+        }
+
+        .reject-friend-sidebar {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="theme-toggle">
@@ -27,28 +70,6 @@
             </div>
             <div class="livchat-title">Livchat</div>
             <div class="header-right">
-                <button id="notificationsToggle" class="header-btn">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="notification-badge">3</span> </button>
-                <div id="notificationsMenu" class="dropdown-content notifications-dropdown">
-                    <h3>Friend Requests</h3>
-                    <div class="notification-item">
-                        <span>User1</span>
-                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
-                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
-                    </div>
-                    <div class="notification-item">
-                        <span>User2</span>
-                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
-                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
-                    </div>
-                    <div class="notification-item">
-                        <span>User3</span>
-                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
-                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
-                    </div>
-                    <div class="no-requests" style="display: none;">No new friend requests.</div>
-                </div>
                 <div class="friends-dropdown">
                     <button id="friendsToggle" class="header-btn">
                         Friends <i class="fa-solid fa-user-plus"></i> <i class="fa-solid fa-caret-down"></i>
@@ -58,10 +79,7 @@
                         <div id="addFriendSearch" class="add-friend-search">
                             <input type="text" id="searchFriends" placeholder="Search">
                             <div id="searchResults" class="search-results">
-                                <div>Result</div>
-                                <div>Result</div>
-                                <div>Result</div>
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -70,6 +88,9 @@
         <aside class="sidebar">
             <button class="sidebar-btn" id="chatOption">Chat <i class="fa-regular fa-comment"></i></button>
             <button class="sidebar-btn" id="customizeOption">Customize <i class="fa-solid fa-palette"></i></button>
+            <button class="sidebar-btn" id="sidebarNotificationsToggle">
+                Notifications <i class="fa-solid fa-bell"></i>
+                <span class="notification-badge">3</span> </button>
         </aside>
         <main class="main-content">
             <div class="chat-area" id="chatArea">
@@ -97,12 +118,43 @@
             const addFriendSearch = document.getElementById('addFriendSearch');
             const customizeOption = document.getElementById('customizeOption');
             const currentUsernameSpan = document.getElementById('currentUsername');
-            const chatArea = document.getElementById('chatArea'); // Get the chat area element
-            const notificationsToggle = document.getElementById('notificationsToggle');
-            const notificationsMenu = document.getElementById('notificationsMenu');
+            const chatArea = document.getElementById('chatArea');
+            const sidebarNotificationsToggle = document.getElementById('sidebarNotificationsToggle');
             const chatOptionButton = document.getElementById('chatOption');
             const chatSidebar = document.getElementById('chatSidebar');
-            let newMessage = false; // Flag to indicate a new message
+            let newMessage = false;
+
+            // Sample list of users (replace with your actual data source)
+            const allUsers = ["Alice", "Bob", "Charlie", "David", "Eve"];
+
+            const searchInput = document.getElementById('searchFriends');
+            const searchResultsDiv = document.getElementById('searchResults');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                searchResultsDiv.innerHTML = ''; // Clear previous results
+
+                if (searchTerm) {
+                    const filteredUsers = allUsers.filter(user =>
+                        user.toLowerCase().includes(searchTerm) && user.toLowerCase() !== currentUsernameSpan.textContent.toLowerCase()
+                    );
+
+                    filteredUsers.forEach(user => {
+                        const resultItem = document.createElement('div');
+                        resultItem.textContent = user;
+                        const addIcon = document.createElement('i');
+                        addIcon.classList.add('fa-solid', 'fa-plus', 'add-friend-icon');
+                        addIcon.addEventListener('click', function() {
+                            console.log(`Friend request sent to ${user}`);
+                            // In a real application, you would send a friend request to the server here
+                            // For now, we can just remove the result item
+                            resultItem.remove();
+                        });
+                        resultItem.appendChild(addIcon);
+                        searchResultsDiv.appendChild(resultItem);
+                    });
+                }
+            });
 
             // Function to update theme button text
             function updateThemeButtonText() {
@@ -154,19 +206,17 @@
             usernameToggle.addEventListener('click', function(event) {
                 usernameMenu.classList.toggle('show');
                 friendsMenu.classList.remove('show');
-                notificationsMenu.classList.remove('show');
             });
 
             // Toggle friends dropdown
             friendsToggle.addEventListener('click', function(event) {
                 friendsMenu.classList.toggle('show');
                 usernameMenu.classList.remove('show');
-                notificationsMenu.classList.remove('show');
             });
 
             // Handle "Add Friend" click
             addFriendOption.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent any default link behavior
+                event.preventDefault();
                 friendsMenu.classList.remove('show');
                 addFriendSearch.classList.toggle('show');
                 document.getElementById('searchFriends').focus();
@@ -181,9 +231,6 @@
                 if (!event.target.matches('#usernameToggle') && !event.target.closest('.username-dropdown')) {
                     usernameMenu.classList.remove('show');
                 }
-                if (!event.target.matches('#notificationsToggle') && !event.target.closest('.notifications-dropdown')) {
-                    notificationsMenu.classList.remove('show');
-                }
             });
 
             // Navigate to customize screen
@@ -197,52 +244,86 @@
                 window.location.href = 'settings.html';
             });
 
-            // Toggle notifications dropdown
-            notificationsToggle.addEventListener('click', function(event) {
-                notificationsMenu.classList.toggle('show');
-                usernameMenu.classList.remove('show');
-                friendsMenu.classList.remove('show');
-            });
-
-            // For now, we'll just log the accept/reject actions
-            const acceptButtons = document.querySelectorAll('.accept-friend');
-            acceptButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const notificationItem = this.parentNode;
-                    const username = notificationItem.querySelector('span').textContent;
-                    console.log(`Friend request accepted from ${username}`);
-                    notificationItem.remove();
-                    const noRequestsMessage = document.querySelector('.no-requests');
-                    if (notificationsMenu.querySelectorAll('.notification-item').length === 0) {
-                        noRequestsMessage.style.display = 'block';
-                    }
-                });
-            });
-
-            const rejectButtons = document.querySelectorAll('.reject-friend');
-            rejectButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const notificationItem = this.parentNode;
-                    const username = notificationItem.querySelector('span').textContent;
-                    console.log(`Friend request rejected from ${username}`);
-                    notificationItem.remove();
-                    const noRequestsMessage = document.querySelector('.no-requests');
-                    if (notificationsMenu.querySelectorAll('.notification-item').length === 0) {
-                        noRequestsMessage.style.display = 'block';
-                    }
-                });
-            });
-
             // Initially hide the chat sidebar
             chatSidebar.style.display = 'none';
+            let isChatSidebarVisible = false;
 
-            // Toggle chat sidebar visibility and reset notification
+            // Toggle chat sidebar visibility
             chatOptionButton.addEventListener('click', function() {
-                chatSidebar.style.display = chatSidebar.style.display === 'none' ? 'block' : 'none';
-                if (newMessage) {
+                isChatSidebarVisible = !isChatSidebarVisible;
+                chatSidebar.style.display = isChatSidebarVisible ? 'block' : 'none';
+                if (newMessage && isChatSidebarVisible) {
                     chatOptionButton.classList.remove('new-message');
                     newMessage = false;
                 }
+                // Reset notifications display when chat is opened
+                if (isChatSidebarVisible) {
+                    chatSidebar.innerHTML = `
+                        <h3>Chats</h3>
+                        <ul class="chat-list">
+                            <li>Friend 1</li>
+                            <li>Friend 2</li>
+                            <li>Friend 3</li>
+                        </ul>
+                    `;
+                }
+            });
+
+            // Handle sidebar notifications toggle
+            sidebarNotificationsToggle.addEventListener('click', function() {
+                isChatSidebarVisible = true;
+                chatSidebar.style.display = 'block';
+                chatSidebar.innerHTML = `
+                    <h3>Notifications</h3>
+                    <h4>Friend Requests</h4>
+                    <div id="friendRequestsSidebar">
+                        <div class="notification-item-sidebar">
+                            <span>User1</span>
+                            <button class="accept-friend-sidebar"><i class="fa-solid fa-check"></i></button>
+                            <button class="reject-friend-sidebar"><i class="fa-solid fa-times"></i></button>
+                        </div>
+                        <div class="notification-item-sidebar">
+                            <span>User2</span>
+                            <button class="accept-friend-sidebar"><i class="fa-solid fa-check"></i></button>
+                            <button class="reject-friend-sidebar"><i class="fa-solid fa-times"></i></button>
+                        </div>
+                        <div class="no-requests-sidebar" style="display: none;">No new friend requests.</div>
+                    </div>
+                    <h4>Messages</h4>
+                    <div id="messagesSidebar">
+                        <div>No new messages.</div>
+                    </div>
+                `;
+
+                // Add functionality to accept/reject buttons in the sidebar
+                const friendRequestsSidebar = document.getElementById('friendRequestsSidebar');
+                const noRequestsMessageSidebar = friendRequestsSidebar.querySelector('.no-requests-sidebar');
+
+                const acceptButtonsSidebar = friendRequestsSidebar.querySelectorAll('.accept-friend-sidebar');
+                acceptButtonsSidebar.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const notificationItem = this.parentNode;
+                        const username = notificationItem.querySelector('span').textContent;
+                        console.log(`Friend request accepted from ${username}`);
+                        notificationItem.remove();
+                        if (friendRequestsSidebar.querySelectorAll('.notification-item-sidebar').length === 0) {
+                            noRequestsMessageSidebar.style.display = 'block';
+                        }
+                    });
+                });
+
+                const rejectButtonsSidebar = friendRequestsSidebar.querySelectorAll('.reject-friend-sidebar');
+                rejectButtonsSidebar.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const notificationItem = this.parentNode;
+                        const username = notificationItem.querySelector('span').textContent;
+                        console.log(`Friend request rejected from ${username}`);
+                        notificationItem.remove();
+                        if (friendRequestsSidebar.querySelectorAll('.notification-item-sidebar').length === 0) {
+                            noRequestsMessageSidebar.style.display = 'block';
+                        }
+                    });
+                });
             });
 
             // Simulate receiving a new message (for testing purposes)
