@@ -54,6 +54,7 @@ body.dark-mode .chat-header {
     transition: background-color 0.3s ease;
     margin-left: 10px;
     margin-right: 10px;
+    position: relative; /* For notification badge positioning */
 }
 
 .header-btn:hover {
@@ -125,8 +126,7 @@ body.dark-mode .sidebar-btn:hover {
 .main-content {
     flex-grow: 1;
     padding: 20px; /* Reduced padding */
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Make main content a flex container */
 }
 
 .chat-area {
@@ -134,8 +134,9 @@ body.dark-mode .sidebar-btn:hover {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
-    flex-grow: 1;
+    flex-grow: 1; /* Chat area takes up available space */
     overflow-y: auto;
+    margin-right: 20px; /* Space between chat area and sidebar */
 }
 
 body.dark-mode .main-content .chat-area {
@@ -258,4 +259,120 @@ body.dark-mode .add-friend-search input[type="text"] {
 
 body.dark-mode .search-results div:hover {
     background-color: #555;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 0.8em;
+}
+
+.notifications-dropdown {
+    min-width: 200px;
+    padding: 15px;
+}
+
+.notifications-dropdown h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+body.dark-mode .notification-item {
+    border-bottom: 1px solid #333;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item span {
+    flex-grow: 1;
+}
+
+.notification-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1em;
+}
+
+.accept-friend {
+    color: green;
+}
+
+.reject-friend {
+    color: red;
+}
+
+.chat-sidebar {
+    background-color: #f8f9fa;
+    color: #495057;
+    width: 200px; /* Adjust width as needed */
+    border-left: 1px solid #dee2e6;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body.dark-mode .chat-sidebar {
+    background-color: #1e1e1e;
+    color: #eee;
+    border-left: 1px solid #333;
+}
+
+.chat-sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.chat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-list li {
+    padding: 10px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+body.dark-mode .chat-list li {
+    border-bottom: 1px solid #333;
+}
+
+.chat-list li:last-child {
+    border-bottom: none;
+}
+
+.chat-list li:hover {
+    background-color: #e9ecef;
+}
+
+body.dark-mode .chat-list li:hover {
+    background-color: #333;
+}
+
+.sidebar-btn.new-message {
+    background-color: #007bff; /* Example: Blue color for new message */
+    color: white;
+}
+
+body.dark-mode .sidebar-btn.new-message {
+    background-color: #5cb85c; /* Example: Green color for new message in dark mode */
+    color: #333;
 }
