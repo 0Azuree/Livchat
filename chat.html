@@ -27,6 +27,28 @@
             </div>
             <div class="livchat-title">Livchat</div>
             <div class="header-right">
+                <button id="notificationsToggle" class="header-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-badge">3</span> </button>
+                <div id="notificationsMenu" class="dropdown-content notifications-dropdown">
+                    <h3>Friend Requests</h3>
+                    <div class="notification-item">
+                        <span>User1</span>
+                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
+                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
+                    </div>
+                    <div class="notification-item">
+                        <span>User2</span>
+                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
+                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
+                    </div>
+                    <div class="notification-item">
+                        <span>User3</span>
+                        <button class="accept-friend"><i class="fa-solid fa-check"></i></button>
+                        <button class="reject-friend"><i class="fa-solid fa-times"></i></button>
+                    </div>
+                    <div class="no-requests" style="display: none;">No new friend requests.</div>
+                </div>
                 <div class="friends-dropdown">
                     <button id="friendsToggle" class="header-btn">
                         Friends <i class="fa-solid fa-user-plus"></i> <i class="fa-solid fa-caret-down"></i>
@@ -52,6 +74,14 @@
         <main class="main-content">
             <div class="chat-area" id="chatArea">
                 </div>
+            <div class="chat-sidebar" id="chatSidebar">
+                <h3>Chats</h3>
+                <ul class="chat-list">
+                    <li>Friend 1</li>
+                    <li>Friend 2</li>
+                    <li>Friend 3</li>
+                </ul>
+            </div>
         </main>
     </div>
 
@@ -68,6 +98,11 @@
             const customizeOption = document.getElementById('customizeOption');
             const currentUsernameSpan = document.getElementById('currentUsername');
             const chatArea = document.getElementById('chatArea'); // Get the chat area element
+            const notificationsToggle = document.getElementById('notificationsToggle');
+            const notificationsMenu = document.getElementById('notificationsMenu');
+            const chatOptionButton = document.getElementById('chatOption');
+            const chatSidebar = document.getElementById('chatSidebar');
+            let newMessage = false; // Flag to indicate a new message
 
             // Function to update theme button text
             function updateThemeButtonText() {
@@ -117,18 +152,16 @@
 
             // Toggle username dropdown
             usernameToggle.addEventListener('click', function(event) {
-                console.log('Username toggle clicked'); // Debugging log
                 usernameMenu.classList.toggle('show');
                 friendsMenu.classList.remove('show');
-                console.log('Username menu show:', usernameMenu.classList.contains('show')); // Debugging log
+                notificationsMenu.classList.remove('show');
             });
 
             // Toggle friends dropdown
             friendsToggle.addEventListener('click', function(event) {
-                console.log('Friends toggle clicked'); // Debugging log
                 friendsMenu.classList.toggle('show');
                 usernameMenu.classList.remove('show');
-                console.log('Friends menu show:', friendsMenu.classList.contains('show')); // Debugging log
+                notificationsMenu.classList.remove('show');
             });
 
             // Handle "Add Friend" click
@@ -148,6 +181,9 @@
                 if (!event.target.matches('#usernameToggle') && !event.target.closest('.username-dropdown')) {
                     usernameMenu.classList.remove('show');
                 }
+                if (!event.target.matches('#notificationsToggle') && !event.target.closest('.notifications-dropdown')) {
+                    notificationsMenu.classList.remove('show');
+                }
             });
 
             // Navigate to customize screen
@@ -160,6 +196,67 @@
             settingsOption.addEventListener('click', function(event) {
                 window.location.href = 'settings.html';
             });
+
+            // Toggle notifications dropdown
+            notificationsToggle.addEventListener('click', function(event) {
+                notificationsMenu.classList.toggle('show');
+                usernameMenu.classList.remove('show');
+                friendsMenu.classList.remove('show');
+            });
+
+            // For now, we'll just log the accept/reject actions
+            const acceptButtons = document.querySelectorAll('.accept-friend');
+            acceptButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const notificationItem = this.parentNode;
+                    const username = notificationItem.querySelector('span').textContent;
+                    console.log(`Friend request accepted from ${username}`);
+                    notificationItem.remove();
+                    const noRequestsMessage = document.querySelector('.no-requests');
+                    if (notificationsMenu.querySelectorAll('.notification-item').length === 0) {
+                        noRequestsMessage.style.display = 'block';
+                    }
+                });
+            });
+
+            const rejectButtons = document.querySelectorAll('.reject-friend');
+            rejectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const notificationItem = this.parentNode;
+                    const username = notificationItem.querySelector('span').textContent;
+                    console.log(`Friend request rejected from ${username}`);
+                    notificationItem.remove();
+                    const noRequestsMessage = document.querySelector('.no-requests');
+                    if (notificationsMenu.querySelectorAll('.notification-item').length === 0) {
+                        noRequestsMessage.style.display = 'block';
+                    }
+                });
+            });
+
+            // Initially hide the chat sidebar
+            chatSidebar.style.display = 'none';
+
+            // Toggle chat sidebar visibility and reset notification
+            chatOptionButton.addEventListener('click', function() {
+                chatSidebar.style.display = chatSidebar.style.display === 'none' ? 'block' : 'none';
+                if (newMessage) {
+                    chatOptionButton.classList.remove('new-message');
+                    newMessage = false;
+                }
+            });
+
+            let newMessage = false; // Flag to indicate a new message
+
+            // Simulate receiving a new message (for testing purposes)
+            function simulateNewMessage() {
+                newMessage = true;
+                chatOptionButton.classList.add('new-message');
+                console.log('New message received!');
+                // In a real application, this would be triggered by a server event
+            }
+
+            // You can add a button in your HTML to trigger this for testing
+            // <button onclick="simulateNewMessage()">Simulate New Message</button>
         });
     </script>
 </body>
